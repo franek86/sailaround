@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import connectMongoDB from "./database/mongodb.js";
 import cookieParser from "cookie-parser";
+
 dotenv.config();
 
 // Import routes
@@ -30,7 +31,7 @@ app.use("/api/v1/yachts", yachtsRouter);
 app.use("/api/v1/profile", profileRouter);
 app.use("/api/v1/users", usersRouter);
 app.use("/api/v1/base", baseRouter);
-app.use("/api/v1/country", countryRoute);
+app.use("/api/v1/countries", countryRoute);
 
 // Middlewares
 app.use(paginationMiddleware());
