@@ -6,8 +6,10 @@ import { errorHandler } from "../utils/error.js";
 // Role => Admin
 export const createCountry = async (req, res, next) => {
   const reqNewCountry = req.body;
+  const uploadIcon = req.file.path;
 
-  console.log(reqNewCountry);
+  reqNewCountry.iconFlag = uploadIcon;
+
   try {
     const existingCountry = await Country.findOne({ name: reqNewCountry.name });
 
@@ -27,14 +29,11 @@ export const createCountry = async (req, res, next) => {
 // Route => api/v1/countries
 // Role => Public
 
-export const getCountires = async (req, res, next) => {
-  const countires = await Country.find();
-
+export const getCountries = async (req, res, next) => {
   try {
-    res.status(200).json({ data: countires, message: "Succesfull get countries" });
+    const countries = await Country.find();
+    res.status(200).json({ data: countries, message: "Succesfull get countries" });
   } catch (error) {
     next(errorHandler(500, "Fetch countries error"));
   }
-
-  console.log(countires);
 };

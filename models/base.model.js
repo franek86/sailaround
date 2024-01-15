@@ -1,37 +1,39 @@
 import mongoose from "mongoose";
 
-const baseSchema = new mongoose.Schema({
-    
-    baseName:{
-        type: String,
-        required: true,
-        unique: true
+const baseSchema = new mongoose.Schema(
+  {
+    baseName: {
+      type: String,
+      required: true,
+      unique: true,
     },
     country: {
-        type:String
+      type: String,
     },
     city: {
-        type:String
+      type: String,
     },
     longitude: {
-        type:Number
+      type: Number,
     },
     latitude: {
-        type:Number
+      type: Number,
     },
 
-    /* countryId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Country' 
+    countryId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Country",
     },
+    /* 
     sailingAreas: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'SailingArea',
     }],
      */
-    
-},{timestamps: true});
+  },
+  { timestamps: true }
+);
 
-const Base = mongoose.model('Base',baseSchema);
+const Base = mongoose.model("Base", baseSchema);
 
 export default Base;

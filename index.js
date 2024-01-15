@@ -30,7 +30,7 @@ app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/yachts", yachtsRouter);
 app.use("/api/v1/profile", profileRouter);
 app.use("/api/v1/users", usersRouter);
-app.use("/api/v1/base", baseRouter);
+app.use("/api/v1/bases", baseRouter);
 app.use("/api/v1/countries", countryRoute);
 
 // Middlewares
