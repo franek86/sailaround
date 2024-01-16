@@ -7,11 +7,11 @@ const countrySchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
-    shortFlag: {
+    shortCountryCode: {
       type: String,
       required: true,
     },
-    longFlag: {
+    longCountryCode: {
       type: String,
       required: true,
     },
