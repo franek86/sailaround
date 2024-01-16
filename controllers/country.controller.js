@@ -1,4 +1,5 @@
 import Country from "../models/country.model.js";
+
 import { errorHandler } from "../utils/error.js";
 
 // Method => POST
@@ -7,7 +8,6 @@ import { errorHandler } from "../utils/error.js";
 export const createCountry = async (req, res, next) => {
   const reqNewCountry = req.body;
   const uploadIcon = req.file.path;
-
   reqNewCountry.iconFlag = uploadIcon;
 
   try {
@@ -31,7 +31,7 @@ export const createCountry = async (req, res, next) => {
 
 export const getCountries = async (req, res, next) => {
   try {
-    const countries = await Country.find();
+    const countries = await Country.find().populate({ path: "basesId", select: "baseName" });
     res.status(200).json({ data: countries, message: "Succesfull get countries" });
   } catch (error) {
     next(errorHandler(500, "Fetch countries error"));

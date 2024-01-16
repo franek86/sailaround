@@ -9,13 +9,22 @@ const countrySchema = new mongoose.Schema(
     },
     shortFlag: {
       type: String,
+      required: true,
     },
     longFlag: {
       type: String,
+      required: true,
     },
     iconFlag: {
       type: String,
+      required: true,
     },
+    basesId: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Base",
+      },
+    ],
   },
   { timestamps: true }
 );
