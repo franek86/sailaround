@@ -17,9 +17,9 @@ export const createCountry = async (req, res, next) => {
       return res.status(200).json({ message: "Country already exists" });
     }
 
-    const newBase = new Country(reqNewCountry);
-    await newBase.save();
-    res.status(200).json({ data: newBase, message: "New base added" });
+    const newCountry = new Country(reqNewCountry);
+    await newCountry.save();
+    res.status(200).json({ data: newCountry, message: "New base added" });
   } catch (error) {
     next(errorHandler(500, "Country create error"));
   }
