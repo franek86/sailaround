@@ -32,7 +32,7 @@ export const createCountry = async (req, res, next) => {
 
 export const getCountries = async (req, res, next) => {
   try {
-    const countries = await Country.find().populate({ path: "basesId", select: "baseName" });
+    const countries = await Country.find();
     res.status(200).json({ data: countries, message: "Succesfull get countries" });
   } catch (error) {
     next(errorHandler(500, "Fetch countries error"));
@@ -64,7 +64,7 @@ export const getCountriesWithBaseCount = async (req, res, next) => {
         },
       },
     ]);
-    res.json(countBasesinCountries);
+    res.status(200).json({ data: countBasesinCountries, message: "Succesfull get countries count bases" });
   } catch (error) {
     next(errorHandler(500, "Fetch count bases in country error"));
   }
