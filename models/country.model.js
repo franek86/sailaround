@@ -18,12 +18,6 @@ const countrySchema = new mongoose.Schema(
     iconFlag: {
       type: String,
     },
-    /*  basesId: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Base",
-      },
-    ], */
   },
   { timestamps: true }
 );

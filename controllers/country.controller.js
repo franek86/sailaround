@@ -7,11 +7,15 @@ import { errorHandler } from "../utils/error.js";
 // Route => api/v1/country/create
 // Role => Admin
 export const createCountry = async (req, res, next) => {
-  const reqNewCountry = req.body;
-  const uploadIcon = req.file.path;
-  reqNewCountry.iconFlag = uploadIcon;
-
   try {
+    const reqNewCountry = req.body;
+
+    if (!req.file) {
+      return res.status(400).json({ message: "No file uploaded for icon flag" });
+    }
+
+    const uploadIcon = req.file.path;
+    reqNewCountry.iconFlag = uploadIcon;
     const existingCountry = await Country.findOne({ name: reqNewCountry.name });
 
     if (existingCountry) {
@@ -67,5 +71,23 @@ export const getCountriesWithBaseCount = async (req, res, next) => {
     res.status(200).json({ data: countBasesinCountries, message: "Succesfull get countries count bases" });
   } catch (error) {
     next(errorHandler(500, "Fetch count bases in country error"));
+  }
+};
+
+// Method => DELETE
+// Route => api/v1/country/delete
+// Role => Admin
+export const deleteCountry = async (req, res, next) => {
+  const { id } = req.params;
+
+  try {
+    const countryId = await Country.findById(id);
+    if (!countryId) {
+      res.status(400).json({ message: "Country id not found" });
+    }
+    await countryId.remove();
+    res.status(200).json({ message: `Country with ${countryId} successfull deleted` });
+  } catch (error) {
+    next(errorHandler(500, "Delete country route error"));
   }
 };
