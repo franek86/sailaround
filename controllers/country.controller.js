@@ -19,7 +19,7 @@ export const createCountry = async (req, res, next) => {
     const existingCountry = await Country.findOne({ name: reqNewCountry.name });
 
     if (existingCountry) {
-      return res.status(200).json({ message: "Country already exists" });
+      return res.status(400).json({ message: "Country already exists" });
     }
 
     const newCountry = new Country(reqNewCountry);
