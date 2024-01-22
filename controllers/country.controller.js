@@ -78,15 +78,11 @@ export const getCountriesWithBaseCount = async (req, res, next) => {
 // Route => api/v1/country/delete
 // Role => Admin
 export const deleteCountry = async (req, res, next) => {
-  const { id } = req.params;
+  const { countryId } = req.params;
 
   try {
-    const countryId = await Country.findById(id);
-    if (!countryId) {
-      res.status(400).json({ message: "Country id not found" });
-    }
-    await countryId.remove();
-    res.status(200).json({ message: `Country with ${countryId} successfull deleted` });
+    const country = await Country.findByIdAndDelete(countryId);
+    res.status(200).json({ message: `Country with ${country.name} successfull deleted` });
   } catch (error) {
     next(errorHandler(500, "Delete country route error"));
   }

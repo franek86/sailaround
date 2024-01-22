@@ -7,19 +7,9 @@ import { handleValidationResult } from "../middleware/validation.js";
 
 const router = express.Router();
 
-router.post(
-  "/create",
-  upload.single("iconFlag"),
-  [
-    body("name").notEmpty().withMessage("Country name is required"),
-    body("shortCountryCode").notEmpty().withMessage("Short code (e.g EN) is required"),
-    body("longCountryCode").notEmpty().withMessage("Long code (e.g ENG) is required"),
-  ],
-  handleValidationResult,
-  createCountry
-);
+router.post("/create", upload.single("iconFlag"), [body("name").notEmpty().withMessage("Country name is required"), body("shortCountryCode").notEmpty().withMessage("Short code (e.g EN) is required"), body("longCountryCode").notEmpty().withMessage("Long code (e.g ENG) is required")], handleValidationResult, createCountry);
 router.get("/", getCountries);
 router.get("/countCountriesBases", getCountriesWithBaseCount);
-router.delete("/:id", deleteCountry);
+router.delete("/:countryId", deleteCountry);
 
 export default router;
