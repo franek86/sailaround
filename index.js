@@ -18,9 +18,24 @@ import countryRoute from "./routes/country.route.js";
 import { paginationMiddleware } from "./middleware/pagination.js";
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
 
-app.use(cors());
+const whitelist = ["http://localhost:3000", "http://example2.com"];
+
+app.options("*", cors());
+
+const corsOptions = {
+  credentials: true,
+  origin: (origin, callback) => {
+    if (whitelist.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 app.use("/uploads", express.static("uploads"));
