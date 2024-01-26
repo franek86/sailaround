@@ -49,6 +49,7 @@ export const getCountries = async (req, res, next) => {
 
 export const getCountriesWithBaseCount = async (req, res, next) => {
   try {
+    const total = await Country.countDocuments();
     const countBasesinCountries = await Country.aggregate([
       {
         $lookup: {
@@ -67,8 +68,11 @@ export const getCountriesWithBaseCount = async (req, res, next) => {
           baseCount: { $size: "$baseCount" },
         },
       },
-    ]);
-    res.status(200).json({ data: countBasesinCountries, message: "Succesfull get countries count bases" });
+    ])
+      .skip(req.pagination.skip)
+      .limit(req.pagination.perPage);
+
+    res.status(200).json({ data: countBasesinCountries, pagination: { total, page: req.pagination.page }, message: "Succesfull get countries count bases" });
   } catch (error) {
     next(errorHandler(500, "Fetch count bases in country error"));
   }

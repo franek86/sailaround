@@ -20,7 +20,7 @@ import { paginationMiddleware } from "./middleware/pagination.js";
 const app = express();
 const port = process.env.PORT;
 
-const whitelist = ["http://localhost:3000", "http://example2.com"];
+const whitelist = ["http://localhost:3000"];
 
 app.options("*", cors());
 

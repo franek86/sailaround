@@ -4,12 +4,13 @@ import { createCountry, deleteCountry, getCountries, getCountriesWithBaseCount }
 
 import { upload } from "../middleware/multer.js";
 import { handleValidationResult } from "../middleware/validation.js";
+import { paginationMiddleware } from "../middleware/pagination.js";
 
 const router = express.Router();
 
 router.post("/create", upload.single("iconFlag"), [body("name").notEmpty().withMessage("Country name is required"), body("shortCountryCode").notEmpty().withMessage("Short code (e.g EN) is required"), body("longCountryCode").notEmpty().withMessage("Long code (e.g ENG) is required")], handleValidationResult, createCountry);
 router.get("/", getCountries);
-router.get("/countCountriesBases", getCountriesWithBaseCount);
+router.get("/countCountriesBases", paginationMiddleware(), getCountriesWithBaseCount);
 router.delete("/:countryId", deleteCountry);
 
 export default router;
