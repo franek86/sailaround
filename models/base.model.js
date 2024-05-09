@@ -22,7 +22,7 @@ const baseSchema = new mongoose.Schema(
 
     countryId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Country",
+      ref: "countrySchema",
     },
     /* 
     sailingAreas: [{
